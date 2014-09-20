@@ -38,7 +38,7 @@ type Config struct {
 	Server  Server   `xml:"server"`
 }
 
-func LoadConfig(name string) (file *Config, err error) {
+func LoadConfig(name string) (*Config, error) {
 	f, e := os.Open(name)
 	if e != nil {
 		return nil, e
