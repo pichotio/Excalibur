@@ -25,7 +25,7 @@ import (
 type IPEndPoint struct {
 	XMLName xml.Name `xml:"address"`
 	Name    string   `xml:"name,attr"`
-	Port    int16    `xml:"port,attr"`
+	Port    uint16   `xml:"port,attr"`
 }
 
 type Server struct {
