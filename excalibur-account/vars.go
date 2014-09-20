@@ -18,5 +18,5 @@
 package main
 
 var (
-	Configurations Config
+	config Config
 )
