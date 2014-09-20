@@ -18,9 +18,39 @@
 package main
 
 import (
+	"encoding/xml"
 	"os"
 )
 
-func main() {
-	os.Exit(0)
+type IPEndPoint struct {
+	XMLName xml.Name `xml:"address"`
+	Name    string   `xml:"name,attr"`
+	Port    uint16   `xml:"port,attr"`
+}
+
+type Server struct {
+	XMLName   xml.Name     `xml:"server"`
+	Addresses []IPEndPoint `xml:"address"`
+}
+
+type Config struct {
+	XMLName xml.Name `xml:"excalibur-account"`
+	Server  Server   `xml:"server"`
+}
+
+func LoadConfig(name string) (file *Config, err error) {
+	f, e := os.Open(name)
+	if e != nil {
+		return nil, e
+	}
+	defer f.Close()
+
+	c := new(Config)
+	x := xml.NewDecoder(f)
+	e = x.Decode(c)
+	if e != nil {
+		return nil, e
+	}
+
+	return c, nil
 }
